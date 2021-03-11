@@ -1,0 +1,46 @@
+plugins {
+	id 'org.springframework.boot' version '2.4.3'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'java'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+
+repositories {
+	mavenCentral()
+}
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(15)
+	}
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+	implementation 'org.apache.commons:commons-lang3'
+	// Adding support for OpenAPI documentation
+	implementation 'org.springdoc:springdoc-openapi-ui:1.5.5'
+	implementation 'org.springdoc:springdoc-openapi-data-rest:1.5.5'
+
+	// Supported development libraries
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	developmentOnly 'org.springframework.boot:spring-boot-starter-actuator'
+
+	runtimeOnly 'com.h2database:h2'
+
+	// Test supported libraries
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.assertj:assertj-core:3.18.1'
+	testImplementation 'org.mockito:mockito-core'
+	testImplementation 'org.skyscreamer:jsonassert:1.5.0'
+}
+
+test {
+	useJUnitPlatform()
+}
+
