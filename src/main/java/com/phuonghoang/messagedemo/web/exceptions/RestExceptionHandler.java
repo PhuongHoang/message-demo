@@ -1,6 +1,8 @@
 package com.phuonghoang.messagedemo.web.exceptions;
 
 import com.phuonghoang.messagedemo.web.dto.RestErrorDto;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -17,11 +19,13 @@ import java.util.stream.Collectors;
 
 @RestControllerAdvice
 public class RestExceptionHandler {
+  private static final Logger LOGGER = LoggerFactory.getLogger(RestExceptionHandler.class);
 
   @ExceptionHandler(IllegalArgumentException.class)
   @ResponseStatus(HttpStatus.BAD_REQUEST)
   public ResponseEntity<RestErrorDto> handleInvalidInput(
       IllegalArgumentException ex, HttpServletRequest httpServletRequest) {
+    LOGGER.error("Handling invalid input", ex);
     final RestErrorDto restErrorDto =
         new RestErrorDto(
             "error/incorrect-arguments",
@@ -36,6 +40,7 @@ public class RestExceptionHandler {
   @ResponseStatus(HttpStatus.BAD_REQUEST)
   public ResponseEntity<RestErrorDto> handleValidationException(
       MethodArgumentNotValidException ex, HttpServletRequest httpServletRequest) {
+    LOGGER.error("Handling input that fails validation", ex);
     final Map<String, String> errors = new HashMap<>();
     ex.getBindingResult()
         .getAllErrors()
@@ -63,6 +68,7 @@ public class RestExceptionHandler {
   @ResponseStatus(HttpStatus.NOT_FOUND)
   public ResponseEntity<RestErrorDto> handleNoElementFound(
       NoSuchElementException ex, HttpServletRequest httpServletRequest) {
+    LOGGER.error("Handling exception related to resource not found.", ex);
     final RestErrorDto restErrorDto =
         new RestErrorDto(
             "error/not-found",
@@ -77,6 +83,7 @@ public class RestExceptionHandler {
   @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
   public ResponseEntity<RestErrorDto> handleGenericError(
       RuntimeException ex, HttpServletRequest httpServletRequest) {
+    LOGGER.error("Handling unexpected exception.", ex);
     final RestErrorDto restErrorDto =
         new RestErrorDto(
             "error/internal-error",
