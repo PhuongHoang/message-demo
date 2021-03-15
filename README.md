@@ -8,10 +8,13 @@
 3. **[Run the application](#run-the-application)**</br>
 3.1 **[Run using Gradle task](#run-using-gradle-task)**</br>
 3.2 **[Run as Docker container](#run-as-docker-container)**</br>
-4 **[Accessing the APIs](#accessing-the-apis)**</br>
+4. **[Accessing the APIs](#accessing-the-apis)**</br>
 4.1 **[Through Swagger UI](#through-swagger-ui)**</br>
-4.2 **[Through Postman](#through-postman)**</br>
-5 **[Design of the application](#design-of-the-application)**   
+4.2 **[Through Postman](#through-postman)**
+5. **[Design of the application](#design-of-the-application)**</br>
+5.1 **[High level view](#high-level-view)**</br>
+5.2 **[Structure of the project](#structures-of-the-project)**</br>
+5.3 **[Sequence diagrams](#sequence-diagrams)**</br>   
 
 ## Description
 This is an example project to demonstrate an application that provides CRUD (Create-Retrieve-Update-Delete) operations for messages. In addition, the application provides a web UI that lists all the REST APIs exposed by this application. The following sections describe the features in details.
@@ -73,3 +76,17 @@ When the application runs, it serves a Swagger UI that lists all the available R
 There is a Postman collection that can be imported into Postman. It contains all the REST APIs with test data that can be sent to the application. The Postman collection is stored inside the [postman-script](/postman-script) folder.
 
 ## Design of the application
+### High level view 
+
+### Structures of the project
+The main source code of project is divided into `src` and `test` folders. The `test` folder contains the testing code for the ones in the `src` folder. The `src` folder contains the implementation logic. It can be broken into 3 packages (see image below).
+
+![package view](/docs/packages_view.png "Source packages")
+
+### Sequence diagrams
+#### Successful request
+This sequence shows the call flow for a successful POST create request.
+![POST sequence](/docs/post_sequence.png "Successful POST Request")
+#### Failed request
+This sequence shows the call flow for a failed GET retrieval request.
+![Failed GET sequence](/docs/get_sequence.png "Failed GET Request")
